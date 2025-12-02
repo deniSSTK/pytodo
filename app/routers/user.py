@@ -3,12 +3,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_session
 from schemas.user import UserCreate, UserRead
-from models.user import User
-from crud.user import create_user
+from services.user import user_service
 
-router = APIRouter(prefix="/users", tags=["users"])
+router = APIRouter(prefix="/user", tags=["user"])
 
 @router.post("/", response_model=UserRead)
-async def create_user_endpoint(user: UserCreate, session: AsyncSession = Depends(get_session)):
-    db_user = User(name=user.name, email=user.email, password_hash=user.password)
-    return await create_user(session, db_user)
+async def _create_user(user: UserCreate, session: AsyncSession = Depends(get_session)):
+    return await user_service.create_user(session, user)
+
+@router.get("/{user_id}", response_model=UserRead)
+async def _get_user(user_id: str, session: AsyncSession = Depends(get_session)):
+    return await user_service.get_user(session, user_id)
