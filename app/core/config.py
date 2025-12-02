@@ -6,6 +6,7 @@ class Settings:
     POSTGRES_DB = os.getenv("POSTGRES_DB")
     POSTGRES_HOST = os.getenv("POSTGRES_HOST")
     POSTGRES_PORT = os.getenv("POSTGRES_PORT")
+    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 
     @property
     def DATABASE_URL(self):
