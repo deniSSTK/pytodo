@@ -14,7 +14,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql
     networks:
-      - backend
+      - api
 
   api:
     build: ./app
@@ -31,7 +31,7 @@ services:
     ports:
       - "8000:8000"
     networks:
-      - backend
+      - api
 
 volumes:
   postgres_data:
