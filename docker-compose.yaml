@@ -3,7 +3,7 @@ version: "3.9"
 services:
   db:
     image: postgres:18
-    container_name: taskmanager_db
+    container_name: db
     restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -16,9 +16,9 @@ services:
     networks:
       - backend
 
-  backend:
+  api:
     build: ./app
-    container_name: taskmanager_api
+    container_name: api
     restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -37,4 +37,4 @@ volumes:
   postgres_data:
 
 networks:
-  backend:
+  api:
