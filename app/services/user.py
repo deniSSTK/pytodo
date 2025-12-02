@@ -27,14 +27,12 @@ class UserService:
             "id": str(created_user.id),
         }
 
-        access_token = jwt_provider.create_access_token(jwt_data)
         refresh_token = jwt_provider.create_refresh_token(jwt_data)
 
         set_cookie(response, COOKIE_REFRESH, refresh_token)
 
         return AuthUser(
             id=created_user.id,
-            access_token=access_token,
         )
         
 
