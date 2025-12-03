@@ -34,4 +34,7 @@ class AuthService:
             user=auth_user
         )
 
+    async def get_user_from_token(self, token: str) -> AuthUser | None:
+        return jwt_provider.decode_token(token)
+
 auth_service = AuthService()
