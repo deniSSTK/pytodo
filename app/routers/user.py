@@ -3,7 +3,7 @@ from fastapi import Response
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_session
-from schemas.auth import AuthUser
+from schemas.response.auth_response import AuthResponse
 from schemas.user import UserCreate, UserRead
 from services.user import user_service
 
@@ -13,10 +13,10 @@ router = APIRouter(prefix="/user", tags=["user"])
 async def _get_user(user_id: str, session: AsyncSession = Depends(get_session)):
     return await user_service.get_user(session, user_id)
 
-@router.post("/", response_model=AuthUser)
+@router.post("/", response_model=AuthResponse)
 async def _create_user(
-        user: UserCreate,
+        dto: UserCreate,
         response: Response,
         session: AsyncSession = Depends(get_session)
 ):
-    return await user_service.create_user(session, response, user)
+    return await user_service.create_user(session, response, dto)
